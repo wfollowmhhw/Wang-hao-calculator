@@ -288,6 +288,7 @@ int main() {
     std::getline(std::cin, input);
     Tree* new_tree = planttree(read(input));
     //printInfix(new_tree);
+    //输出1，则为重言式，输出0，则不是重言式
     std::cout << trans_check(sequent(new_tree)) << std::endl;
     if(lan){
         std::cout << "输入任意字符结束程序" <<std::endl;
