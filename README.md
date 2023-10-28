@@ -155,7 +155,8 @@ std::queue<Tree*> tempQueue1 = i.front;
 ```
 ## 感谢列表
 首先要感谢最先完成的两位同学，实际上我自己的数据结构的水平极为有限，在开始写代码的时候我并不知道什么是 **二叉树** ，最先完成的两位同学给我提供了很宝贵的思路<br>
-其次要感谢的是CSDN中文博客，是众多博客让我理解了二叉树的构建，从而充分理解了两位同学的计算方法，进而有了自己的思考<br>
+其次要感谢章明星老师的指导，让我接触到了如此优美的证明方法<br>
+然后要感谢的是CSDN中文博客，是众多博客让我理解了二叉树的构建，从而充分理解了两位同学的计算方法，进而有了自己的思考<br>
 此处是有关二叉树的CSDN博客 "https://blog.csdn.net/weixin_45796387/article/details/114994648?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522169850350216777224439293%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=169850350216777224439293&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-114994648-null-null.142^v96^pc_search_result_base3&utm_term=%E4%BA%8C%E5%8F%89%E6%A0%91&spm=1018.2226.3001.4187" <br>
 最后要感谢GPT CLM等大模型，它通过为许多我读不懂的代码添加注释，让我理解了自动证明算法的思路<br>
 
