@@ -294,5 +294,5 @@ int main() {
     }else{
         std::cout << "Enter any character to end the program." <<std::endl;
     }
-    cin >> lan;
+    std::cin >> lan;
 }
