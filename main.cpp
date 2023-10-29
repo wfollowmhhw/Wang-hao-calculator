@@ -8,7 +8,7 @@
 #include "notice.hpp"
 
 
-//è¿™ä¸ªäºŒå‰æ ‘ç”¨æ¥å‚¨å­˜è¿ç®—æ—¶çš„é¡ºåºï¼ˆå³è®¡ç®—æœºè¯»å–çš„é¡ºåºï¼‰
+//Õâ¸ö¶ş²æÊ÷ÓÃÀ´´¢´æÔËËãÊ±µÄË³Ğò£¨¼´¼ÆËã»ú¶ÁÈ¡µÄË³Ğò£©
 class Tree {// This binary tree class is used to store the order in which calculations are performed
 public:
     char symbol;
@@ -20,18 +20,18 @@ public:
     }
 };
 
-//è¿™ä¸ªç±»ç”¨äºå‚¨å­˜ç›¸ç»§å¼çš„å‰åä»¶ï¼Œå‚¨å­˜å†…å®¹æ˜¯åˆ†æ”¯çš„Tree
+//Õâ¸öÀàÓÃÓÚ´¢´æÏà¼ÌÊ½µÄÇ°ºó¼ş£¬´¢´æÄÚÈİÊÇ·ÖÖ§µÄTree
 class Object {//The class used to store the antecedent and consequent of a sequent, with content being branches of Tree
 public:
     std::queue<Tree*> front, back;
 };
 
-//ç”¨äºåˆ¤æ–­è¾“å…¥
+//ÓÃÓÚÅĞ¶ÏÊäÈë
 inline bool isConnector(char c) {//Used for input validation
     return (c == '!' || c == '&' || c == '|' || c == '>' || c == '=');
 }
 
-//ä¼˜å…ˆçº§æ’åº
+//ÓÅÏÈ¼¶ÅÅĞò
 inline int priority(const char c) {
     switch (c) {
         case '!':
@@ -49,14 +49,15 @@ inline int priority(const char c) {
     }
 }
 
-//è¿™ä¸ªå‡½æ•°å°†è¢«ç”¨äºè¯»å–è¾“å…¥çš„é€»è¾‘è¿ç®—å¼
-//æœ€ç»ˆè¿”å›åç¼€è¡¨è¾¾å¼
+
+//Õâ¸öº¯Êı½«±»ÓÃÓÚ¶ÁÈ¡ÊäÈëµÄÂß¼­ÔËËãÊ½
+//×îÖÕ·µ»Øºó×º±í´ïÊ½
 // This function will be used to read logical expressions
 // and return the postfix expression
 std::string read(std::string midsentense) {
     std::string backsentense;
-    //æ­¤å¤„è¾“å…¥éœ€è¯é€»è¾‘å¼çš„ä¸­ç¼€è¡¨è¾¾å¼
-    std::stack<char> pile;//å †æ ˆç”¨äºæŠŠä¸­ç¼€è¡¨è¾¾å¼å˜ä¸ºåç¼€è¡¨è¾¾å¼
+    //´Ë´¦ÊäÈëĞèÖ¤Âß¼­Ê½µÄÖĞ×º±í´ïÊ½
+    std::stack<char> pile;//¶ÑÕ»ÓÃÓÚ°ÑÖĞ×º±í´ïÊ½±äÎªºó×º±í´ïÊ½
 
     for (char temp : midsentense)
     {
@@ -67,7 +68,7 @@ std::string read(std::string midsentense) {
                 backsentense.push_back(pile.top());
                 pile.pop();
             }
-            pile.push(temp);//æŠŠæ–°è¿ç®—ç¬¦å‹å…¥å †
+            pile.push(temp);//°ÑĞÂÔËËã·ûÑ¹Èë¶Ñ
         }
         else if (temp == '(') {
             pile.push(temp);
@@ -77,7 +78,7 @@ std::string read(std::string midsentense) {
                 backsentense.push_back(pile.top());
                 pile.pop();
             }
-            pile.pop();//æŠŠæœ€åä¸€ä¸ª'('å¼¹å‡º
+            pile.pop();//°Ñ×îºóÒ»¸ö'('µ¯³ö
         }
         else {
             backsentense.push_back(temp);
@@ -90,8 +91,8 @@ std::string read(std::string midsentense) {
     return backsentense;
 }
 
-//è¿™ä¸ªå‡½æ•°è¯»å…¥åç¼€è¡¨è¾¾å¼
-//æœ€ç»ˆè¿”å›å»ºç«‹å¥½çš„è¿ç®—äºŒå‰æ ‘
+//Õâ¸öº¯Êı¶ÁÈëºó×º±í´ïÊ½
+//×îÖÕ·µ»Ø½¨Á¢ºÃµÄÔËËã¶ş²æÊ÷
 // This function reads the postfix expression and returns the constructed binary tree
 Tree* planttree(const std::string sen) {
     std::stack<Tree*> treestack;
@@ -115,10 +116,10 @@ Tree* planttree(const std::string sen) {
     return treestack.top();
 }
 
-//è¿™ä¸ªå‡½æ•°ç”¨äºæŠŠæœ€å¼€å§‹å»ºç«‹çš„æ•°è½¬æ¢ä¸ºç›¸ç»§å¼
+//Õâ¸öº¯ÊıÓÃÓÚ°Ñ×î¿ªÊ¼½¨Á¢µÄÊı×ª»»ÎªÏà¼ÌÊ½
 Object sequent(Tree* root) {// This function is used to convert the binary tree to a sequent
     Object temp;
-    //æ ‘æ ¹æ˜¯'>'æ—¶ï¼Œå¯ä»¥ç›´æ¥å¾—å‡ºå‰åä»¶
+    //Ê÷¸ùÊÇ'>'Ê±£¬¿ÉÒÔÖ±½ÓµÃ³öÇ°ºó¼ş
     if (root->symbol == '>') {
         temp.front.push(root->left);
         temp.back.push(root->right);
@@ -129,7 +130,7 @@ Object sequent(Tree* root) {// This function is used to convert the binary tree 
     return temp;
 }
 
-//è¿™ä¸ªå‡½æ•°ç”¨äºæŠŠæ•°è¾“å‡ºæˆä¸ºä¸­ç¼€è¡¨è¾¾å¼
+//Õâ¸öº¯ÊıÓÃÓÚ°ÑÊıÊä³ö³ÉÎªÖĞ×º±í´ïÊ½
 void printInfix(Tree* root) {// This function prints the infix expression of the tree
     if (root != nullptr) {
         if (isConnector(root->symbol)) {
@@ -144,7 +145,7 @@ void printInfix(Tree* root) {// This function prints the infix expression of the
     }
 }
 
-//è¯¥å‡½æ•°ç”¨äºåˆ¤æ–­å‰ä»¶æˆ–åä»¶é‡Œæœ‰æ²¡æœ‰ç¬¦å·
+//¸Ãº¯ÊıÓÃÓÚÅĞ¶ÏÇ°¼ş»òºó¼şÀïÓĞÃ»ÓĞ·ûºÅ
 bool noConnector(std::queue<Tree*> sen) {
     while (!sen.empty()) {
         if (isConnector(sen.front()->symbol))
@@ -154,9 +155,9 @@ bool noConnector(std::queue<Tree*> sen) {
     return 1;
 }
 
-//æ­¤å‡½æ•°ç”¨äºæ‰“å°å‰ä»¶å’Œåä»¶çš„é˜Ÿåˆ—
+//´Ëº¯ÊıÓÃÓÚ´òÓ¡Ç°¼şºÍºó¼şµÄ¶ÓÁĞ
 void printQueue(const std::queue<Tree*>& q) {// This function is used to print queue
-    std::queue<Tree*> temp = q; // åˆ›å»ºé˜Ÿåˆ—å‰¯æœ¬ä»¥å…æ”¹å˜åŸé˜Ÿåˆ—
+    std::queue<Tree*> temp = q; // ´´½¨¶ÓÁĞ¸±±¾ÒÔÃâ¸Ä±äÔ­¶ÓÁĞ
     if(temp.empty())
     {
         std::cout<<"none";
@@ -168,21 +169,21 @@ void printQueue(const std::queue<Tree*>& q) {// This function is used to print q
     }
 }
 
-//æœ¬å‡½æ•°æ˜¯ç‹æµ©ç®—æ³•çš„ä¸»è¦å®ç°å‡½æ•°ï¼Œé€šè¿‡å‡½æ•°å†…éƒ¨å˜å½¢åçš„é€’å½’è°ƒç”¨ï¼Œå®ç°å¯¹ä¸åŒåˆ†æ”¯çš„å…¬ç†å˜å½¢
-//åˆ¤æ–­æ˜¯å¦ä¸ºå…¬ç†å‡½æ•°
+//ÅĞ¶ÏÊÇ·ñÎª¹«Àíº¯Êı
 bool trans_check(Object i) {
     std::cout << "front is:";
     printQueue(i.front);
     std::cout << "  back is:";
     printQueue(i.back);
     std::cout << std::endl;
-    //å‰ä»¶è§„åˆ™
+
     // Antecedent rules
     if (!noConnector(i.front)) {
         Tree* temp = i.front.front();
         Object i1 = i;
         Object i2 = i;
         i1.front.pop();
+        i2.front.pop();
 
         switch (temp->symbol) {
             case '!':
@@ -193,19 +194,16 @@ bool trans_check(Object i) {
                 i1.front.push(temp->right);
                 break;
             case '|':
-                i2.front.pop();
-                i2.front.push(temp->left);
+                i1.front.push(temp->left);
                 i2.front.push(temp->right);
                 return trans_check(i1) && trans_check(i2);
             case '>':
-                i2.front.pop();
-                i2.front.push(temp->right);
+                i1.front.push(temp->right);
                 i2.back.push(temp->left);
                 return trans_check(i1) && trans_check(i2);
             case '=':
-                i2.front.pop();
-                i2.front.push(temp->left);
-                i2.front.push(temp->right);
+                i1.front.push(temp->left);
+                i1.front.push(temp->right);
                 i2.back.push(temp->left);
                 i2.back.push(temp->right);
                 return trans_check(i1) && trans_check(i2);
@@ -213,21 +211,20 @@ bool trans_check(Object i) {
 
         return trans_check(i1);
     }
-    //åä»¶è§„åˆ™
+
     // Consequent rules
     if (!noConnector(i.back)) {
         Tree* temp = i.back.front();
         Object i1 = i;
         Object i2 = i;
         i1.back.pop();
-
+        i2.back.pop();
         switch (temp->symbol) {
             case '!':
                 i1.front.push(temp->right);
                 break;
             case '&':
-                i2.back.pop();
-                i2.back.push(temp->left);
+                i1.back.push(temp->left);
                 i2.back.push(temp->right);
                 return trans_check(i1) && trans_check(i2);
             case '|':
@@ -239,7 +236,6 @@ bool trans_check(Object i) {
                 i1.back.push(temp->right);
                 break;
             case '=':
-                i2.back.pop();
                 i2.back.push(temp->left);
                 i2.front.push(temp->right);
                 i1.front.push(temp->left);
@@ -249,7 +245,7 @@ bool trans_check(Object i) {
 
         return trans_check(i1);
     }
-    //å¦‚æœç¨‹åºè¿è¡Œåˆ°æ­¤å¤„ï¼Œè¯´æ˜å‰åä»¶å‡æ— è”ç»“è¯ï¼Œæ­¤æ—¶åˆ¤æ–­å‰åä»¶æœ‰æ— ç›¸åŒå‘½é¢˜å˜é¡¹
+
     // Check for symbols not found in the consequent
     std::queue<Tree*> tempQueue1 = i.front;
     while (!tempQueue1.empty()) {
@@ -267,10 +263,12 @@ bool trans_check(Object i) {
     return false;
 }
 
-//è¿™ä¸‰ä¸ªå‡½æ•°ç”¨äºæä¾›ç¨‹åºè¯´æ˜ï¼Œæ–¹ä¾¿userç›´æ¥ä½¿ç”¨çš„æ—¶å€™èƒ½äº†è§£ä½¿ç”¨æ–¹æ³•
+
+
 extern void choose_language();
 extern void Tools_notice();
 extern void Tools_notice(int);
+
 
 int main() {
     choose_language();
@@ -279,7 +277,7 @@ int main() {
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     if(lan){
         Tools_notice();
-        std::cout << "è¯·è¾“å…¥æ‚¨æƒ³è¯æ˜çš„å®šç†" << std::endl;
+        std::cout << "ÇëÊäÈëÄúÏëÖ¤Ã÷µÄ¶¨Àí" << std::endl;
     }else{
         Tools_notice(lan);
         std::cout <<"Please provide the theorem you would like to prove" << std::endl;
@@ -288,10 +286,9 @@ int main() {
     std::getline(std::cin, input);
     Tree* new_tree = planttree(read(input));
     //printInfix(new_tree);
-    //è¾“å‡º1ï¼Œåˆ™ä¸ºé‡è¨€å¼ï¼Œè¾“å‡º0ï¼Œåˆ™ä¸æ˜¯é‡è¨€å¼
     std::cout << trans_check(sequent(new_tree)) << std::endl;
     if(lan){
-        std::cout << "è¾“å…¥ä»»æ„å­—ç¬¦ç»“æŸç¨‹åº" <<std::endl;
+        std::cout << "ÊäÈëÈÎÒâ×Ö·û½áÊø³ÌĞò" <<std::endl;
     }else{
         std::cout << "Enter any character to end the program." <<std::endl;
     }
