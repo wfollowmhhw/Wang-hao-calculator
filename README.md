@@ -60,12 +60,13 @@ Object sequent(Tree* root) {
 化简方法来自于王浩算法的10种推理规则<br>
 ```cpp
 
-// 前件规则
+// Antecedent rules
     if (!noConnector(i.front)) {
         Tree* temp = i.front.front();
         Object i1 = i;
         Object i2 = i;
         i1.front.pop();
+        i2.front.pop();
 
         switch (temp->symbol) {
             case '!':
@@ -76,19 +77,16 @@ Object sequent(Tree* root) {
                 i1.front.push(temp->right);
                 break;
             case '|':
-                i2.front.pop();
-                i2.front.push(temp->left);
+                i1.front.push(temp->left);
                 i2.front.push(temp->right);
                 return trans_check(i1) && trans_check(i2);
             case '>':
-                i2.front.pop();
-                i2.front.push(temp->right);
+                i1.front.push(temp->right);
                 i2.back.push(temp->left);
                 return trans_check(i1) && trans_check(i2);
             case '=':
-                i2.front.pop();
-                i2.front.push(temp->left);
-                i2.front.push(temp->right);
+                i1.front.push(temp->left);
+                i1.front.push(temp->right);
                 i2.back.push(temp->left);
                 i2.back.push(temp->right);
                 return trans_check(i1) && trans_check(i2);
